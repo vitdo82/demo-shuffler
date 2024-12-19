@@ -17,7 +17,7 @@ class RandomGeneratorTest {
         // then
         List<Integer> randomNumbers = randomGenerator.generateRandomNumber(10);
         assertThat(randomNumbers.size()).isEqualTo(10);
-        assertThat(randomNumbers).containsOnly(1,2,3,4,5,6,7,8,9,10);
-        assertThat(randomNumbers).doesNotContainSequence(1,2,3,4,5,6,7,8,9,10);
+        assertThat(randomNumbers).containsOnly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        assertThat(randomNumbers).doesNotContainSequence(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     }
 }

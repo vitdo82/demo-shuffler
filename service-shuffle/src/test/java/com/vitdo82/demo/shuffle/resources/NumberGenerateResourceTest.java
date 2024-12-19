@@ -1,5 +1,6 @@
 package com.vitdo82.demo.shuffle.resources;
 
+import com.vitdo82.demo.shuffle.services.LogsClient;
 import com.vitdo82.demo.shuffle.services.RandomGenerator;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,8 +16,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class NumberGenerateResourceTest {
@@ -26,6 +28,9 @@ class NumberGenerateResourceTest {
 
     @MockitoBean
     private RandomGenerator randomGenerator;
+
+    @MockitoBean
+    private LogsClient logsClient;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -58,6 +63,7 @@ class NumberGenerateResourceTest {
     void shouldReturnListWhenInputIsValidTest() {
         // before
         Mockito.doReturn(List.of(1)).when(randomGenerator).generateRandomNumber(999);
+        Mockito.doReturn(Mockito.mock(CompletableFuture.class)).when(logsClient).log(Mockito.anyList());
 
         // when
         ResponseEntity<List> response = testRestTemplate.exchange(

@@ -26,6 +26,7 @@ public class AppConfiguration {
         poolTaskExecutor.setMaxPoolSize(10);
         poolTaskExecutor.setQueueCapacity(500);
         poolTaskExecutor.setThreadNamePrefix("LogSend-");
+        poolTaskExecutor.initialize();
         return poolTaskExecutor;
     }
 }

@@ -26,8 +26,12 @@ public class LogsClient {
     @Async
     public CompletableFuture<Void> log(List<Integer> generatedNumbers) {
         LOGGER.info("Send log message: {}, to endpoint: {}", generatedNumbers, shuffleProperties.getLogUrl());
-
-        restTemplate.postForObject(shuffleProperties.getLogUrl(), generatedNumbers, Void.class);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.runAsync(() -> {
+            try {
+                restTemplate.postForObject(shuffleProperties.getLogUrl(), generatedNumbers, Void.class);
+            } catch (Exception e) {
+                LOGGER.error("Error sending log message", e);
+            }
+        });
     }
 }

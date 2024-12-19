@@ -10,11 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RandomGeneratorTest {
 
     @Test
-    void generateRandomNumber() {
+    void shouldGenerateRandomNumberListTest() {
+        // when
         RandomGenerator randomGenerator = new RandomGenerator();
 
+        // then
         List<Integer> randomNumbers = randomGenerator.generateRandomNumber(10);
-
-        assertThat(randomNumbers.isEmpty()).isFalse();
+        assertThat(randomNumbers.size()).isEqualTo(10);
+        assertThat(randomNumbers).containsOnly(1,2,3,4,5,6,7,8,9,10);
+        assertThat(randomNumbers).doesNotContainSequence(1,2,3,4,5,6,7,8,9,10);
     }
 }
